@@ -11,12 +11,15 @@ class ThemeModeBottomSheet extends StatefulWidget {
 }
 
 class _ThemeModeBottomSheetState extends State<ThemeModeBottomSheet> {
+  late AppConfigProvider provider;
+
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AppConfigProvider>(context);
+    provider = Provider.of<AppConfigProvider>(context);
 
     return Container(
-      margin: EdgeInsets.all(12),
+      padding: EdgeInsets.all(12),
+      color: provider.containerbackgroundColor(),
       child: Column(
         children: [
           InkWell(
@@ -50,13 +53,13 @@ class _ThemeModeBottomSheetState extends State<ThemeModeBottomSheet> {
         Text(
           themeMode,
           style: Theme.of(context).textTheme.headline4?.copyWith(
-                fontSize: 20,
-                color: Colors.black,
+            fontSize: 20,
+                color: provider.bottomSheettextColor(),
               ),
         ),
         Icon(
           Icons.check,
-          color: Colors.black,
+          color: provider.bottomSheettextColor(),
         ),
       ],
     );
@@ -69,8 +72,8 @@ class _ThemeModeBottomSheetState extends State<ThemeModeBottomSheet> {
         Text(
           themeMode,
           style: Theme.of(context).textTheme.headline4?.copyWith(
-                fontSize: 20,
-                color: Colors.black,
+            fontSize: 20,
+                color: provider.bottomSheettextColor(),
               ),
         ),
       ],

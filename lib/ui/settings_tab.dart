@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:todo2/main.dart';
 import 'package:todo2/ui/language_bottom_sheet.dart';
 import 'package:todo2/ui/thememode_bottom_sheet.dart';
 
@@ -38,7 +37,7 @@ class _SettingsState extends State<Settings> {
                 margin: EdgeInsets.all(12),
                 padding: EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: containerbackgroundColor(),
+                  color: provider.containerbackgroundColor(),
                   border: Border.all(color: Colors.blue),
                 ),
                 child: Row(
@@ -69,7 +68,7 @@ class _SettingsState extends State<Settings> {
                 margin: EdgeInsets.all(12),
                 padding: EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                    color: containerbackgroundColor(),
+                    color: provider.containerbackgroundColor(),
                     border: Border.all(color: Colors.blueAccent)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,11 +103,5 @@ class _SettingsState extends State<Settings> {
         builder: (buildContext) {
           return ThemeModeBottomSheet();
         });
-  }
-
-  Color containerbackgroundColor() {
-    return provider.isDark()
-        ? MyThemeData.darkScaffoldBackground
-        : Colors.white;
   }
 }
