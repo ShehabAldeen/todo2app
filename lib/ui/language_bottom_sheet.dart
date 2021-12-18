@@ -18,7 +18,8 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
     provider = Provider.of<AppConfigProvider>(context);
 
     return Container(
-      margin: EdgeInsets.all(12),
+      padding: EdgeInsets.all(12),
+      color: provider.containerbackgroundColor(),
       child: Column(
         children: [
           InkWell(
@@ -52,13 +53,13 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
         Text(
           lang,
           style: Theme.of(context).textTheme.headline4?.copyWith(
-                fontSize: 20,
-                color: Colors.black,
+            fontSize: 20,
+                color: provider.bottomSheettextColor(),
               ),
         ),
         Icon(
           Icons.check,
-          color: Colors.black45,
+          color: provider.bottomSheettextColor(),
         ),
       ],
     );
@@ -71,8 +72,8 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
         Text(
           lang,
           style: Theme.of(context).textTheme.headline4?.copyWith(
-                fontSize: 20,
-                color: Colors.black,
+            fontSize: 20,
+                color: provider.bottomSheettextColor(),
               ),
         ),
       ],
