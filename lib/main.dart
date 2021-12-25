@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -5,7 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:todo2/ui/app_config_provider.dart';
 import 'package:todo2/ui/homescreen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(ChangeNotifierProvider(
       create: (BuildContext context) {
         return AppConfigProvider();
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
 
 class MyThemeData {
   static const Color lightScaffoldBackground =
-      Color.fromARGB(255, 223, 236, 219);
+  Color.fromARGB(255, 223, 236, 219);
   static const Color darkScaffoldBackground = Color.fromARGB(255, 6, 14, 30);
 
   static final ThemeData lightTheme = ThemeData(
