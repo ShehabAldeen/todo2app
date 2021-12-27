@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:todo2/date/firebase_utiles.dart';
+import 'package:todo2/date/todo.dart';
 import 'package:todo2/ui/todo_widget.dart';
 
 class TodoListTab extends StatefulWidget {
@@ -58,12 +61,25 @@ class _TodoListTabState extends State<TodoListTab> {
             weekendDays: [],
           ),
           Expanded(
-            child: ListView.builder(
+              child: StreamBuilder<QuerySnapshot<Todo>>(
+            stream: getTodoCollectionWithConverter().snapshots(),
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot<Todo>> snapshot) {
+              if (snapshot.hasError) {
+                return Center(child: Text(snapshot.error.toString()));
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+              List<Todo> items =
+                  snapshot.data!.docs.map((dec) => dec.data()).toList();
+              return ListView.builder(
                 itemBuilder: (buildContext, index) {
-                  return TodoWidget();
+                  return TodoWidget(items[index]);
                 },
-                itemCount: 10),
-          ),
+                itemCount: items.length,
+              );
+            },
+          )),
         ],
       ),
     );

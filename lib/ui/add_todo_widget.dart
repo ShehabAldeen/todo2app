@@ -93,7 +93,7 @@ class _AddToddBottomSheetState extends State<AddToddBottomSheet> {
       return;
     }
     addTodoFireStore(title, description, selectedDate).then((value) {
-      Navigator.pop(context);
+      addShowMessage('Task is added succesfully');
     }).onError((error, stackTrace) {
       print('Error adding');
     }).timeout(Duration(seconds: 10), onTimeout: () {});
@@ -109,5 +109,22 @@ class _AddToddBottomSheetState extends State<AddToddBottomSheet> {
       selectedDate = newSelectedDate;
       setState(() {});
     }
+  }
+
+  void addShowMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (buildContext) {
+          return AlertDialog(
+            content: Text(message),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('OK'))
+            ],
+          );
+        });
   }
 }

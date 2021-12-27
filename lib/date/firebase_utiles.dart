@@ -24,3 +24,9 @@ Future<void> addTodoFireStore(
 
   return decRef.set(item);
 }
+
+Future<void> deleteTodo(Todo item) {
+  CollectionReference collectionReference = getTodoCollectionWithConverter();
+  DocumentReference itemDec = collectionReference.doc(item.id);
+  return itemDec.delete();
+}
