@@ -2,11 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:todo2/date/firebase_utiles.dart';
+import 'package:todo2/date/todo.dart';
 
 import '../main.dart';
 import 'app_config_provider.dart';
 
-class TodoWidget extends StatelessWidget {
+class TodoWidget extends StatefulWidget {
+  Todo item;
+
+  TodoWidget(this.item);
+
+  @override
+  State<TodoWidget> createState() => _TodoWidgetState();
+}
+
+class _TodoWidgetState extends State<TodoWidget> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<AppConfigProvider>(context);
@@ -44,11 +55,11 @@ class TodoWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          'Title',
+                          widget.item.title,
                           style: Theme.of(context).textTheme.subtitle1,
                         ),
                         Text(
-                          'Subtitle',
+                          widget.item.description,
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                       ],
@@ -95,8 +106,33 @@ class TodoWidget extends StatelessWidget {
               ],
             ),
           ),
+          onTap: () {
+            deleteTodo(widget.item)
+                .then((value) {
+                  deleteshowMessage('Task is deletd succesfully');
+                })
+                .onError((error, stackTrace) {})
+                .timeout(Duration(seconds: 10), onTimeout: () {});
+          },
         )
       ],
     );
+  }
+
+  void deleteshowMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (buildContext) {
+          return AlertDialog(
+            content: Text(message),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('OK'))
+            ],
+          );
+        });
   }
 }
