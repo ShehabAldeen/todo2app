@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo2/date/todo.dart';
 
 import '../main.dart';
 
 class AppConfigProvider extends ChangeNotifier {
   String appLanguage = 'en';
   ThemeMode appTheme = ThemeMode.light;
+  DateTime selectDate = DateTime.now();
+  List<Todo> items = [];
 
   void changeAppLanguage(String newLang) {
     if (newLang == appLanguage) return;

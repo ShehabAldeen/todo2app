@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo2/ui/app_config_provider.dart';
+import 'package:todo2/ui/edit/editing_task.dart';
 import 'package:todo2/ui/homescreen.dart';
 
 void main() async {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       themeMode: provider.appTheme,
       routes: {
         HomeScreen.routName: (buildContext) => HomeScreen(),
+        EditingScreen.routeName: (buildContext) => EditingScreen(),
       },
       initialRoute: HomeScreen.routName,
     );
@@ -38,8 +40,9 @@ class MyApp extends StatelessWidget {
 
 class MyThemeData {
   static const Color lightScaffoldBackground =
-  Color.fromARGB(255, 223, 236, 219);
+      Color.fromARGB(255, 223, 236, 219);
   static const Color darkScaffoldBackground = Color.fromARGB(255, 6, 14, 30);
+  static const Color greenColor = Color.fromARGB(255, 97, 231, 87);
 
   static final ThemeData lightTheme = ThemeData(
     primarySwatch: Colors.blue,
@@ -61,6 +64,11 @@ class MyThemeData {
         headline4: TextStyle(
           color: Colors.blue,
           fontSize: 12,
+        ),
+        headline6: TextStyle(
+          fontSize: 22,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
         ),
         subtitle1: TextStyle(
           fontSize: 18,
@@ -94,6 +102,11 @@ class MyThemeData {
           color: Colors.blue,
           fontSize: 12,
         ),
+        headline6: TextStyle(
+          fontSize: 22,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
         subtitle1: TextStyle(
           fontSize: 18,
           color: Colors.white,
@@ -112,3 +125,4 @@ class MyThemeData {
         )),
   );
 }
+

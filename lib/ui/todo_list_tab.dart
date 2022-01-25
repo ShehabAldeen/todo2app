@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo2/date/firebase_utiles.dart';
 import 'package:todo2/date/todo.dart';
 import 'package:todo2/ui/todo_widget.dart';
 
+import 'todo_widget.dart';
+
 class TodoListTab extends StatefulWidget {
+  const TodoListTab({Key? key}) : super(key: key);
+
   @override
   State<TodoListTab> createState() => _TodoListTabState();
 }
@@ -28,7 +31,7 @@ class _TodoListTabState extends State<TodoListTab> {
             onDaySelected: (sDay, fDay) {
               setState(() {
                 selectedDay = sDay;
-                focusedDay = fDay; // update `_focusedDay` here as well
+                focusedDay = fDay;
               });
             },
             calendarFormat: CalendarFormat.week,
@@ -62,7 +65,10 @@ class _TodoListTabState extends State<TodoListTab> {
           ),
           Expanded(
               child: StreamBuilder<QuerySnapshot<Todo>>(
-            stream: getTodoCollectionWithConverter().snapshots(),
+            stream: getTodoCollectionWithConverter()
+                .where('dateTime',
+                    isEqualTo: selectedDay.getDateOnly().microsecondsSinceEpoch)
+                .snapshots(),
             builder: (BuildContext context,
                 AsyncSnapshot<QuerySnapshot<Todo>> snapshot) {
               if (snapshot.hasError) {

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'app_config_provider.dart';
 
 class LanguageBottomSheet extends StatefulWidget {
+  const LanguageBottomSheet({Key? key}) : super(key: key);
+
   @override
   State<LanguageBottomSheet> createState() => _LanguageBottomSheetState();
 }
@@ -18,7 +19,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
     provider = Provider.of<AppConfigProvider>(context);
 
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       color: provider.containerbackgroundColor(),
       child: Column(
         children: [
@@ -30,7 +31,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
                 ? selecteLanguage(AppLocalizations.of(context)!.english)
                 : unSelecteLanguage(AppLocalizations.of(context)!.english),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           InkWell(
