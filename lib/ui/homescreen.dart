@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo2/ui/add_todo_widget.dart';
 import 'package:todo2/ui/settings_tab.dart';

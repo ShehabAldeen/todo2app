@@ -1,14 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo2/date/firebase_utiles.dart';
 
 class AddToddBottomSheet extends StatefulWidget {
+  const AddToddBottomSheet({Key? key}) : super(key: key);
+
   @override
   State<AddToddBottomSheet> createState() => _AddToddBottomSheetState();
 }
 
+final formKey = GlobalKey<FormState>();
+
 class _AddToddBottomSheetState extends State<AddToddBottomSheet> {
-  var formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now();
   var title = '';
   var description = '';
@@ -16,7 +18,7 @@ class _AddToddBottomSheetState extends State<AddToddBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -26,13 +28,13 @@ class _AddToddBottomSheetState extends State<AddToddBottomSheet> {
             style: Theme.of(context).textTheme.subtitle2,
           ),
           Form(
-              key: formKey,
-              child: Column(
+            key: formKey,
+            child: Column(
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Title',
-                    ),
+                    decoration: const InputDecoration(
+                    labelText: 'Title',
+                  ),
                     validator: (text) {
                       if (text == null || text.isEmpty) {
                         return 'please enter todo title';
@@ -41,26 +43,28 @@ class _AddToddBottomSheetState extends State<AddToddBottomSheet> {
                     },
                     onChanged: (text) {
                       title = text;
-                    },
+                    Form.of(context);
+                  },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Description',
-                    ),
+                    decoration: const InputDecoration(
+                    labelText: 'Description',
+                  ),
                     minLines: 3,
                     maxLines: 3,
                     validator: (text) {
-                      if (text == null || text.isEmpty) {
-                        return 'please enter description';
-                      }
-                      return null;
-                    },
-                    onChanged: (text) {
-                      description = text;
-                    },
-                  ),
-                ],
-              )),
+                    if (text == null || text.isEmpty) {
+                      return 'please enter description';
+                    }
+                    return null;
+                  },
+                  onChanged: (text) {
+                    description = text;
+                  },
+                ),
+              ],
+            ),
+          ),
           SizedBox(
             height: 10,
           ),
@@ -81,7 +85,7 @@ class _AddToddBottomSheetState extends State<AddToddBottomSheet> {
             onPressed: () {
               addTodo();
             },
-            child: Text('Add'),
+            child: const Text('Add'),
           )
         ],
       ),
@@ -96,7 +100,7 @@ class _AddToddBottomSheetState extends State<AddToddBottomSheet> {
       addShowMessage('Task is added succesfully');
     }).onError((error, stackTrace) {
       print('Error adding');
-    }).timeout(Duration(seconds: 10), onTimeout: () {});
+    }).timeout(Duration(seconds: 20), onTimeout: () {});
   }
 
   void showDateDialge() async {
